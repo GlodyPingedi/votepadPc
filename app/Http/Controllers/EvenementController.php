@@ -63,7 +63,7 @@ class EvenementController extends Controller
             ]
         );
 
-       return redirect(route('evenements.index'))->with('success', 'Enregistrement reussi');
+        return redirect(route('evenements.index'))->with('success', 'Enregistrement reussi');
     }
 
     /**
@@ -121,7 +121,7 @@ class EvenementController extends Controller
             ]
         );
 
-       return redirect(route('evenements.index'))->with('success', 'Modification reussie');
+        return redirect(route('evenements.index'))->with('success', 'Modification reussie');
     }
 
     /**
@@ -129,6 +129,7 @@ class EvenementController extends Controller
      */
     public function destroy(Evenement $evenement)
     {
-        //
+        $evenement->delete();
+        return redirect()->route('evenements.index')->with('success', 'Evénement supprimé avec succès');
     }
 }
