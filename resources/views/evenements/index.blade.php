@@ -4,8 +4,11 @@
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 {{ __('Liste des événements') }}
             </h2>
-            <a href="{{route('evenements.create')}}" class="text-yellow-400 hover:text-white border border-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-white dark:hover:bg-yellow-400 dark:focus:ring-yellow-900">
-            Créer un événement
+            <a href="{{route('evenements.create')}}" class="text-yellow-400 hover:text-white border border-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-white dark:hover:bg-yellow-400 dark:focus:ring-yellow-900 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                </svg>
+                Créer un événement
             </a>
         </div>
     </x-slot>
@@ -81,9 +84,16 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="p-2">
+            {{$evenements->links()}}
+        </div>
     </div>
+    
+<!-- Main modal -->
+
 
     <x-delete :message="__('Voulez-vous vraiment supprimer cet événement?')" />
+    <x-template/>
     <script>
         function supprimer(event, url) {
             event.preventDefault();
