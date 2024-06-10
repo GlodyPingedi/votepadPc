@@ -17,7 +17,7 @@ class EvenementFactory extends Factory
     public function definition(): array
     {
         return [
-            'nom'=>$this->faker->unique()->numerify('Compétition ##'),
+            'nom'=>$this->faker->unique()->numerify('Evénement ##'),
             'description'=>$this->faker->unique()->sentence(),
             'type'=>$this->faker->randomElement(['Compétition', 'Evaluation']),
             'date_debut'=>$this->faker->unique()->dateTime($max = 'now'),
