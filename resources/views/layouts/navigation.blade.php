@@ -107,7 +107,12 @@
              <span class="ms-3">Reponses</span>
              </a>
           </li>
-         
+          <li>
+            <a href="{{route('intervenants.index')}}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="m590-128-74-74 104-104-104-104 74-74 104 104 104-104 74 74-104 104 104 104-74 74-104-104-104 104Zm79-374L509-662l74-74 85 85 170-170 74 75-243 244ZM48-267v-106h401v106H48Zm0-320v-106h401v106H48Z"/></svg>                
+            <span class="ms-3">Intervenant</span>
+            </a>
+         </li>
        </ul>
     </div>
  </aside>

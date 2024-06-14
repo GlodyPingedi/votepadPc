@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        $this->call(EvenementSeeder::class);
+        $this->call(IntervenantPhaseSeeder::class);
+        $this->call(PhaseSeeder::class);
     }
 }
