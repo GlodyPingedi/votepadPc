@@ -18,6 +18,7 @@ class EvenementController extends Controller
      *      tags={"Evenements"},
      *      summary="Afficher la liste des evenements",
      *      description="Api qui nous retourne la liste des evenements",
+     *      security={{"bearerAuth":{}}},
      *      @OA\Response(
      *          response=200,
      *          description="Successful operation",

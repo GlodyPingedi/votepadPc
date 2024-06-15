@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class PhaseController extends Controller
 {
+  
     /**
      * Display a listing of the resource.
      */
@@ -26,7 +27,7 @@ class PhaseController extends Controller
     public function create()
     {
         $evenements=Evenement:: orderBy('nom')->get();
-        return view("phases.creat", compact("evenements"));
+        return view("phases.create", compact("evenements"));
     }
 
     /**
@@ -50,7 +51,7 @@ class PhaseController extends Controller
 
         );
         
-        return redirect()->route('phase.index')->with('success','Enregistrement reussit');
+        return redirect()->route('phases.index')->with('success','Enregistrement reussit');
     }
 
     /**
@@ -65,7 +66,7 @@ class PhaseController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Phase $phase)
+    public function edit(Phase $phase, Evenement $evenement)
     {
         $phaseEdit= $phase;
         return view('phases.edit', compact('phaseEdit'));
@@ -77,11 +78,13 @@ class PhaseController extends Controller
     public function update(UpdatePhaseRequest $request, Phase $phase)
     {
         $phase->update([
+            'nom'=> $request->nom,
             'statut'=> $request->statut,
-            'description'=> $request->statut,
+            'description'=> $request->description,
             'date_debut'=> $request->date_debut,
             'date_fin'=> $request->date_fin
         ]);
+        return redirect()->route('phases.index')->with('success','phase modifiée avec succes');
     }
 
     /**
@@ -93,7 +96,6 @@ class PhaseController extends Controller
         // return redirect()->route('phases.index')->with('success','Suppression effectuée avec succès');
         //Je suggere la desactivation de la phase dans le statut
     }
-
     public function active()
     {
         $phase = Phase::latest()->where("statut","active")->get();
@@ -139,6 +141,7 @@ class PhaseController extends Controller
                 'evenements.nom as nom_event',
                 'type as type_envent',
                 'status as stat_event',
+                'phases.id as id',
                 'phases.nom as nom_phase',
                 'phases.description as decrip_phase',
                 'phases.statut as stat_phase',
@@ -150,4 +153,31 @@ class PhaseController extends Controller
        
         return view('phases.show', compact('phaseShow'));
     }
+    public function editPhase($id){
+        $phaseShow1 = Phase::latest()->where('id', $id)->get();
+        foreach($phaseShow1 as $key => $value) {
+            $evenement=$value->evenement_id;
+           }//recuperation de l' id de l'evenement
+
+        $phaseEdit= DB::table('evenements')
+            ->join('phases',"evenements.id","=","phases.evenement_id")
+            // ->select('evenements.*', 'phases.*') //on recupere tout mais avec conflit de champs identitiques
+            ->select(
+                'evenements.id as id_event',
+                'evenements.nom as nom_event',
+                'type as type_envent',
+                'status as stat_event',
+                'phases.id as id',
+                'phases.nom as nom_phase',
+                'phases.description as decrip_phase',
+                'phases.statut as stat_phase',
+                'phases.date_debut as debut_phase',
+                'phases.date_fin as fin_phase')
+            ->where("evenements.id","=", (isset($evenement))?$evenement:null)
+            ->where("phases.id","=",$id)
+            ->get();
+       
+        return view('phases.edit', compact('phaseEdit'));
+    }
+   
 }

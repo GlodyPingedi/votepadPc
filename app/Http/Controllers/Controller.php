@@ -15,12 +15,16 @@ namespace App\Http\Controllers;
      *          url="http://www.apache.org/licenses/LICENSE-2.0.html"
      *      )
      * )
-     *
+     * @OA\SecurityScheme(
+     * type="http",
+     * securityScheme="bearerAuth",
+     * scheme="bearer",
+     * bearerFormat="JWT"
+     * )
      * @OA\Server(
      *      url=L5_SWAGGER_CONST_HOST,
      *      description="API Server VotePad2"
      * )
-
      *
      * @OA\Tag(
      *     name="VotePad2",

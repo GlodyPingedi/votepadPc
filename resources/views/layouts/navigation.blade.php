@@ -83,7 +83,36 @@
                 <span class="ms-3">Evénements</span>
              </a>
           </li>
-         
+          <li>
+             <a href="{{route('phases.index')}}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M107-67v-306h120v-160h200v-54H307v-306h346v306H533v54h200v160h120v306H507v-306h120v-54H333v54h120v306H107Zm306-626h134v-94H413v94ZM213-173h134v-94H213v94Zm400 0h134v-94H613v94ZM480-693ZM347-267Zm266 0Z"/></svg>
+                <span class="ms-3">Phase</span>
+             </a>
+          </li>
+          <li>
+             <a href="{{route('questions.index')}}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M194-88q-43.73 0-74.86-31.14Q88-150.27 88-194v-164h106v164h164v106H194Zm572 0H602v-106h164v-164h106v164q0 43.73-31.14 74.86Q809.72-88 766-88ZM88-766q0-43.72 31.14-74.86Q150.27-872 194-872h164v106H194v164H88v-164Zm784 0v164H766v-164H602v-106h164q43.72 0 74.86 31.14T872-766ZM477.86-217q25.14 0 42.64-17.36t17.5-42.5q0-25.14-17.36-42.64t-42.5-17.5q-25.14 0-42.64 17.36t-17.5 42.5q0 25.14 17.36 42.64t42.5 17.5ZM430-385h98q0-36 12.5-64t41.5-56q31-29 44.5-55t13.5-56.99q0-55.77-43.5-90.89T484-743q-60 0-102.5 31.5T324-625l86 34q2-27 23.6-45.5T484-655q26 0 43 14t17 36.04q0 16.96-11 34.46T500-535q-37 32-53.5 67T430-385Z"/></svg>
+                <span class="ms-3">Question</span>
+             </a>
+          </li>
+          <li>
+             <a href="{{route('assertions.index')}}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M227-8v-377L95-599l193-313h384l193 313-132 214V-8L480-93 227-8Zm106-147 147-48 147 53v-136H333v131Zm14-651L219-599l128 207h266l128-207-128-207H347Zm91 388L278-577l75-75 85 85 169-170 75 74-244 245ZM333-286h294-294Z"/></svg>
+                <span class="ms-3">Assertion</span>
+             </a>
+          </li>
+          <li>
+             <a href="{{route('reponses.index')}}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="m590-128-74-74 104-104-104-104 74-74 104 104 104-104 74 74-104 104 104 104-74 74-104-104-104 104Zm79-374L509-662l74-74 85 85 170-170 74 75-243 244ZM48-267v-106h401v106H48Zm0-320v-106h401v106H48Z"/></svg>                
+             <span class="ms-3">Reponses</span>
+             </a>
+          </li>
+          <li>
+            <a href="{{route('intervenants.index')}}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="m590-128-74-74 104-104-104-104 74-74 104 104 104-104 74 74-104 104 104 104-74 74-104-104-104 104Zm79-374L509-662l74-74 85 85 170-170 74 75-243 244ZM48-267v-106h401v106H48Zm0-320v-106h401v106H48Z"/></svg>                
+            <span class="ms-3">Intervenant</span>
+            </a>
+         </li>
        </ul>
     </div>
  </aside>

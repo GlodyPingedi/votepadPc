@@ -5,14 +5,12 @@
                 {{ __('Liste des événements') }}
             </h2>
             <a href="{{route('evenements.create')}}" class="text-yellow-400 hover:text-white border border-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-white dark:hover:bg-yellow-400 dark:focus:ring-yellow-900 flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                 </svg>
-                Créer un événement
             </a>
         </div>
     </x-slot>
-
 
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg" style="padding-top: 10px;">
         @if (session('success'))
@@ -36,7 +34,7 @@
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="px-6 py-3">Num</th>
-                    <th scope="col" class="px-6 py-3">Nom compétition</th>
+                    <th scope="col" class="px-6 py-3">Nom événement</th>
                     <th scope="col" class="px-6 py-3">description</th>
                     <th scope="col" class="px-6 py-3">type</th>
                     <th scope="col" class="px-6 py-3">date_début</th>
@@ -65,6 +63,13 @@
                         <div id="dropdownDots{{$i}}" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-15 dark:bg-gray-700 dark:divide-gray-600">
                             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownMenuIconButton">
                             <li>
+                                <a href="{{route('criteres.index')}}" class="block px-4 py-2 hover:bg-yellow-100 dark:hover:bg-yellow-300 dark:hover:text-white border-2 rounded-md border-gray-700">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+                                    </svg>                                       
+                                </a>
+                            </li>
+                            <li>
                                 <a href="{{route('evenements.edit', $item->id)}}" class="block px-4 py-2 hover:bg-blue-100 dark:hover:bg-blue-600 dark:hover:text-white border-2 rounded-md border-gray-700">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
@@ -88,9 +93,6 @@
             {{$evenements->links()}}
         </div>
     </div>
-    
-<!-- Main modal -->
-
 
     <x-delete :message="__('Voulez-vous vraiment supprimer cet événement?')" />
     <x-template/>
