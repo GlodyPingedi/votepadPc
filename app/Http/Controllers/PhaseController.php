@@ -6,6 +6,7 @@ use App\Models\Phase;
 use App\Http\Requests\StorePhaseRequest;
 use App\Http\Requests\UpdatePhaseRequest;
 use App\Models\Evenement;
+use App\Models\Question;
 use Illuminate\Support\Facades\DB;
 
 class PhaseController extends Controller
@@ -39,11 +40,25 @@ class PhaseController extends Controller
             'nom'=> 'require [ max:50 | min:3',
             'description'=> 'require'
         ]);
+        $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersNumber = strlen($characters);
+        $codeLength = 3;
+        $slug = null;
+
+        do {
+            $slug = '';
+            for ($i = 0; $i < $codeLength; $i++) {
+                $position = mt_rand(0, $charactersNumber - 1);
+                $slug .= $characters[$position];
+            }
+        }while (Phase::where('slug', $slug)->exists());
+
         $phase = Phase::create(
             [
                 'nom'=> $request->nom,
                 'description'=> $request->description,
                 'statut'=> $request->statut,
+                'slug'=> $slug,
                 'date_debut'=> $request->date_debut,
                 'date_fin'=> $request->date_fin,
                 'evenement_id'=> $request->evenement_id
@@ -60,7 +75,8 @@ class PhaseController extends Controller
     public function show(Phase $phase)
     {
         $phaseShow=$phase;
-        return view('phases.show', compact('phaseShow'));
+        $question= Question::latest()->get();  
+        return view('phases.show', compact('phaseShow','question'));
     }
     
     /**
@@ -150,8 +166,8 @@ class PhaseController extends Controller
             ->where("evenements.id","=", (isset($evenement))?$evenement:null)
             ->where("phases.id","=",$id)
             ->get();
-       
-        return view('phases.show', compact('phaseShow'));
+       $question= Question::latest()->get();
+        return view('phases.show', compact('phaseShow', 'question'));
     }
     public function editPhase($id){
         $phaseShow1 = Phase::latest()->where('id', $id)->get();

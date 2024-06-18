@@ -12,6 +12,7 @@
         </div>
     </x-slot>
 
+
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg" style="padding-top: 10px;">
         @if (session('success'))
         <div id="alert-3" class="flex items-center p-4 mb-4 text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert" >
@@ -46,7 +47,7 @@
             <tbody>
                 @foreach ($evenements as $i=>$item)
                     <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                    <td class="px-6 py-4">{{$i+1}}</td>
+                    <td class="px-6 py-4">{{$evenements->firstItem() + $i}}</td>
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{$item->nom}}</th>
                     <td class="px-6 py-4">{{$item->description}}</td>
                     <td class="px-6 py-4">{{$item->type}}</td>
@@ -90,7 +91,7 @@
             </tbody>
         </table>
         <div class="p-2">
-            {{$evenements->links()}}
+            {{$evenements->withPath(request()->url())->links()}}
         </div>
     </div>
 

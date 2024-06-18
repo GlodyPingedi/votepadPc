@@ -3,6 +3,7 @@
 use App\Http\Controllers\AssertionController;
 use App\Http\Controllers\PhaseController;
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\QuestionPhaseController;
 use App\Http\Controllers\ReponseController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,10 +21,11 @@ Route::middleware('auth')->group(function () {
     Route::get('phase/pause', [PhaseController::class,'pause'])->name('phase.pause');
     Route::get('phase/terminer', [PhaseController::class,'terminer'])->name('phase.terminer');
 
-     Route::resource('phases', PhaseController::class);
-     Route::resource('questions', QuestionController::class);
-     Route::resource('assertions', AssertionController::class);
-     Route::resource('reponses', ReponseController::class);
+    Route::resource('phases', PhaseController::class);
+    Route::resource('questions', QuestionController::class);
+    Route::resource('assertions', AssertionController::class);
+    Route::resource('reponses', ReponseController::class);
+    Route::resource('questionPhases', QuestionPhaseController::class);
    
 });
 

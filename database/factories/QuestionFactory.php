@@ -17,10 +17,7 @@ class QuestionFactory extends Factory
     public function definition(): array
     {
         return [
-            "question"=> $this->faker->words(6, true),
-            "ponderation"=>(int)$this->faker->numberBetween(5,10),
-            "statut"=>"valide",
-            "phase_id"=>(int)$this->faker->numberBetween(1,15)
+            "question"=> $this->faker->words(6, true)
         ];
     }
 }

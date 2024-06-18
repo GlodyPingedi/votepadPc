@@ -16,9 +16,8 @@ class IntervenantController extends Controller
      */
     public function index()
     {
-        $phases = Phase::latest()->get();
-        $intervenants = Intervenant::with('phases')->latest()->get();
-        return view('intervenants.index', compact('intervenants'), compact('phases'));
+        $intervenants = Intervenant::latest()->paginate(13);
+        return view('intervenants.index', compact('intervenants'));
     }
 
     /**
@@ -26,7 +25,7 @@ class IntervenantController extends Controller
      */
     public function create()
     {
-        $phases = Phase::all();
+        $phases = Phase::latest()->get();
         return view('intervenants.create', compact('phases'));
     }
 
@@ -62,18 +61,21 @@ class IntervenantController extends Controller
                 }
             } while (Intervenant::where('coupon', $coupon)->exists());
             $couponPhase = $slug.$coupon;
+            $now = date('Y-m-d H:i:s');
             $data[] = [
                 'email' => $row['email'],
                 'coupon'  => $couponPhase,
+                'created_at' => $now,
+                'updated_at'=> $now,
             ];
         }
-        
+
         $status = Intervenant::insert($data);
         
         if ($status) {
             $reader->close();
             unlink($fichier);
-            return redirect(route('intervenants.index'))->with('success', 'import réussi');
+            return redirect(route('intervenants.index'))->with('success', 'Insertion réussie');
         } else {
             abort(500);
         }

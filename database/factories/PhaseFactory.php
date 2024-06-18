@@ -19,7 +19,7 @@ class PhaseFactory extends Factory
         return [
             "nom"=> $this->faker->words(3, true),
             "description"=> $this->faker->words(3, true),
-            "slug"=> $this->faker->unique()->numerify('###'),
+            "slug" => $this->faker->unique()->regexify('[A-Z0-9]{3}'),
             "statut"=> $this->faker->randomElement(["active","desactive"]),
             "date_debut"=> $this->faker->dateTimeBetween($startDate = 'now', $endDate = '1 year', $timezone = null),
             "date_fin"=> $this->faker->dateTimeBetween($startDate = 'now', $endDate = '1 year', $timezone = null),
