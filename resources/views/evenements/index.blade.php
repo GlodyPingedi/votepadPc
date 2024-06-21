@@ -12,7 +12,7 @@
         </div>
     </x-slot>
 
-    
+
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg" style="padding-top: 10px;">
         @if (session('success'))
         <div id="alert-3" class="flex items-center p-4 mb-4 text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert" >
@@ -96,6 +96,7 @@
     </div>
 
     <x-delete :message="__('Voulez-vous vraiment supprimer cet événement?')" />
+    <x-template/>
     <script>
         function supprimer(event, url) {
             event.preventDefault();
