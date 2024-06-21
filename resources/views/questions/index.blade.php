@@ -5,9 +5,6 @@
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight ">
                 {{ __('Question') }}
             </h2>
-            <a href="{{route('questions.create')}}" class="text-yellow-400 hover:text-white border border-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-white dark:hover:bg-yellow-400 dark:focus:ring-yellow-900">
-                Créer une question
-            </a>
         </div>
         
     </x-slot>

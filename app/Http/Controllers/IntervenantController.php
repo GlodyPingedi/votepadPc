@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Spatie\SimpleExcel\SimpleExcelReader;
 use App\Http\Requests\StoreIntervenantRequest;
 use App\Http\Requests\UpdateIntervenantRequest;
+use App\Models\IntervenantPhase;
 
 class IntervenantController extends Controller
 {
@@ -17,7 +18,11 @@ class IntervenantController extends Controller
     public function index()
     {
         $intervenants = Intervenant::latest()->paginate(13);
-        return view('intervenants.index', compact('intervenants'));
+        $intervenantPhaseCount = [];
+        foreach ($intervenants as $intervenant) {
+            $intervenantPhaseCount[$intervenant->id] = $intervenant->phases->count();
+        }
+        return view('intervenants.index', compact('intervenants', 'intervenantPhaseCount'));
     }
 
     /**
@@ -41,43 +46,60 @@ class IntervenantController extends Controller
         $charactersNumber = strlen($characters);
         $codeLength = 3;
         $coupon = null;
-
+    
         $request->validate([
             'fichier' => 'bail|required|file|mimes:csv'
         ]);
-        
+    
         $fichier = $request->fichier->move(public_path(), $request->fichier->hashName());
-        
         $reader = SimpleExcelReader::create($fichier);
         $rows = $reader->getRows();
-        
+        $now = date('Y-m-d H:i:s');
+        $getRows = 0;
         $data = [];
         foreach ($rows as $row) {
+            $intervenant = Intervenant::where('email', $row['email'])->first();
+            $getRows += 1;
+            if ($intervenant) {
+                $intervenantId = $intervenant->id;
+            } else {
+                $intervenant = Intervenant::create([
+                    'email' => $row['email'],
+                    'created_at' => $now,
+                    'updated_at'=> $now,
+                ]);
+                $intervenantId = $intervenant->id;
+            }
+    
             do {
                 $coupon = '';
                 for ($i = 0; $i < $codeLength; $i++) {
                     $position = mt_rand(0, $charactersNumber - 1);
                     $coupon .= $characters[$position];
                 }
-            } while (Intervenant::where('coupon', $coupon)->exists());
+            } while (IntervenantPhase::where('coupon', $coupon)->exists());
+    
             $couponPhase = $slug.$coupon;
-            $now = date('Y-m-d H:i:s');
+            $getRecord = IntervenantPhase::where('intervenant_id', $intervenantId)->where('phase_id', $phaseId)->first();
+            if ($getRecord) {
+                continue;
+            }
+
             $data[] = [
-                'email' => $row['email'],
-                'coupon'  => $couponPhase,
+                'intervenant_id' => $intervenantId,
+                'phase_id' => $phaseId,
+                'coupon' => $couponPhase,
                 'created_at' => $now,
                 'updated_at'=> $now,
             ];
         }
-
-        $status = Intervenant::insert($data);
-        
+        $status = IntervenantPhase::insert($data);
+    
         if ($status) {
             $reader->close();
             unlink($fichier);
-            return redirect(route('intervenants.index'))->with('success', 'Insertion réussie');
-        } else {
-            abort(500);
+            $insertionsCount = count($data);
+            return redirect(route('intervenants.index'))->with('success', 'Insertion effectuée : '.$insertionsCount.' sur '.$getRows.' lignes.');
         }
     }
 

@@ -21,6 +21,7 @@ class PhaseFactory extends Factory
             "description"=> $this->faker->words(3, true),
             "slug" => $this->faker->unique()->regexify('[A-Z0-9]{3}'),
             "statut"=> $this->faker->randomElement(["active","desactive"]),
+            "type"=> $this->faker->randomElement(["vote","evaluation"]),
             "date_debut"=> $this->faker->dateTimeBetween($startDate = 'now', $endDate = '1 year', $timezone = null),
             "date_fin"=> $this->faker->dateTimeBetween($startDate = 'now', $endDate = '1 year', $timezone = null),
             "evenement_id"=> $this->faker->numberBetween(1,5),

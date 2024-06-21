@@ -21,13 +21,13 @@ class ReponseController extends Controller
         $questionAssertion = DB::table('assertions')
             ->join('questions', 'assertions.question_id', '=', 'questions.id')
             ->select(
-                'questions.id as question_id',
-                'questions.ponderation as question_ponderation',
-                'questions.question as question',
-                'questions.statut as quest_stat',
+                // 'questions.id as question_id',
+                // 'questions.ponderation as question_ponderation',
+                // 'questions.question as question',
+                // 'questions.statut as quest_stat',
                 'assertions.*')
-            ->where('questions.statut','=','valide')
-            ->where('assertions.statut','=','active')
+            // ->where('questions.statut','=','valide')
+            // ->where('assertions.statut','=','active')
             ->get();
     
         return view("reponses.index", compact('questionAssertion'));

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('intervenants', function (Blueprint $table) {
             $table->id();
             $table->string('email');
-            $table->string('coupon')->default('def#')->unique();
+            $table->string('token')->default('0');
             $table->foreignId('groupe_id')->default(0)->constrained()
                   ->onDelete('no action')
                   ->onUpdate('cascade');

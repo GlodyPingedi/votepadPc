@@ -34,7 +34,7 @@
                 <tr>
                     <th scope="col" class="px-6 py-3">Num</th>
                     <th scope="col" class="px-6 py-3">Email</th>
-                    <th scope="col" class="px-6 py-3">Coupon</th>
+                    <th scope="col" class="px-6 py-3">Nombre Phase</th>
                     <th scope="col" class="px-6 py-3">Date</th>
                 </tr>
             </thead>
@@ -43,7 +43,7 @@
                     <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                     <td class="px-6 py-4">{{$intervenants->firstItem() + $i}}</td>
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{$item->email}}</th>
-                    <td class="px-6 py-4">{{$item->coupon}}</td>
+                    <td class="px-6 py-4">{{$intervenantPhaseCount[$item->id]}}</td>
                     <td class="px-6 py-4">{{$item->created_at}}</td>
                     </tr>
                 @endforeach

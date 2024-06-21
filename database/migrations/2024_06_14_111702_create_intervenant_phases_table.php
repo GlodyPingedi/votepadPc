@@ -21,6 +21,7 @@ return new class extends Migration
                 ->constrained()
                 ->onDelete('no action')
                 ->onUpdate('cascade');
+            $table->string('coupon')->default('def#')->unique();
             $table->timestamps();
         });
     }

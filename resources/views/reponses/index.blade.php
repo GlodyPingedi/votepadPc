@@ -57,13 +57,7 @@
                      
                     </table>
 
-                    
-
-                    @foreach ($questionAssertion as $key=>$item)
-                    
-                    
-                    @endforeach
-                    {{$questionAssertion}}
+                
                 </div>
             </div>
         </div>

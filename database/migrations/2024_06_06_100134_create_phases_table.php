@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('nom');
             $table->longText('description');
             $table->string('statut');
-            $table->string('slug')->unique();
             $table->string('date_debut');
             $table->string('date_fin');
             $table->foreignId('evenement_id')

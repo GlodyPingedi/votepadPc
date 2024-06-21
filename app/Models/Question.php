@@ -11,8 +11,7 @@ class Question extends Model
     protected $fillable = [
         "question",
         "ponderation",
-        "statut",
-        "phase_id",
+        "phase_id"
     ];
     public function questionPhase(){
         return $this->hasMany(Phase::class);
