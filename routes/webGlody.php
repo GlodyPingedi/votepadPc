@@ -11,3 +11,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('criteres',CritereController::class);
     Route::resource('intervenants',IntervenantController::class);
 });
+
+Route::get('/intervenants-form', [IntervenantController::class, 'form'])->name('form-authenticate');
+Route::post('/intervenants-authenticate', [IntervenantController::class, 'authenticate'])->name('authenticate');

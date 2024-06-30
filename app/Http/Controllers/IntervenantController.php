@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Phase;
 use App\Models\Intervenant;
+use Illuminate\Http\Request;
+use App\Models\IntervenantPhase;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Spatie\SimpleExcel\SimpleExcelReader;
 use App\Http\Requests\StoreIntervenantRequest;
 use App\Http\Requests\UpdateIntervenantRequest;
-use App\Models\IntervenantPhase;
 
 class IntervenantController extends Controller
 {
@@ -133,5 +135,42 @@ class IntervenantController extends Controller
     public function destroy(Intervenant $intervenant)
     {
         //
+    }
+
+    public function form(){
+        return view('intervenants.authenticate');
+    }
+
+    public function authenticate(Request $request)
+    {
+        $email = $request->email;
+        $coupon = $request->coupon;
+        $intervenant = Intervenant::where('email', $email)->first();
+    
+        if (!$intervenant) {
+            return redirect(route('form-authenticate'))->with('unsuccess', 'L\'adresse email insérée est invalide.');
+        } else 
+        {
+            $intervenantId = $intervenant->id;
+            $intervenantPhase = IntervenantPhase::where('intervenant_id', $intervenantId)->where('coupon', $coupon)->first();
+            if (!$intervenantPhase) {
+                return redirect(route('form-authenticate'))->with('unsuccess', 'Le coupon inséré est invalide.');
+            } 
+            else {
+                $intervenantToken = $intervenantPhase->token;
+                if ($intervenantToken != 0) {
+                    return redirect(route('form-authenticate'))->with('unsuccess', 'ce coupon a été déjà utilisé.');
+                }
+                else{
+                    $intervenantPhaseCoupon = $intervenantPhase->coupon;
+                    $token = $intervenantPhase->createToken($intervenantPhaseCoupon)->plainTextToken;
+                    $intervenantPhase->token = $token;
+                    $intervenantPhase->save(); 
+                    $phaseSlug = substr($intervenantPhaseCoupon, 0, 3);
+                    $phase = Phase::where('slug', $phaseSlug)->first();
+                    return view('intervenants.intro', compact('phase'));
+                }           
+            }
+        }
     }
 }

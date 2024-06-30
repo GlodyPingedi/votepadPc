@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\CritereController;
+use App\Http\Middleware\IntervenantTokenIsValid;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -15,3 +16,4 @@ Route::apiResource('evenements', EvenementController::class, ['as'=>'api'])->mid
 Route::apiResource('criteres', CritereController::class, ['as'=>'api'])->middleware('auth:sanctum');
 Route::apiResource('intervenants', IntervenantController::class, ['as'=>'api'])->middleware('auth:sanctum');
 
+Route::post('/intervenants-authenticate', [IntervenantController::class, 'authenticate'])->name('authenticate');
