@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {
 
-    Route::get('phase/create', [PhaseController::class,'create'])->name('phase.create');
+    Route::get('phase/create/{evenement_id}', [PhaseController::class, 'create'])->name('phase.create');
     Route::get('phase/{id}', [PhaseController::class,'evenementPhase'])->name('phase.show');
 
     Route::post('auto-question-get', [QuestionController::class,'getQuestionAuto'])->name('auto-question-get');

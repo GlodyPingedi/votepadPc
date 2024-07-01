@@ -6,6 +6,7 @@ use DateTime;
 use App\Models\Evenement;
 use App\Http\Requests\StoreEvenementRequest;
 use App\Http\Requests\UpdateEvenementRequest;
+use App\Models\Phase;
 
 class EvenementController extends Controller
 {
@@ -31,11 +32,11 @@ class EvenementController extends Controller
      */
     public function store(StoreEvenementRequest $request)
     {
-        $request->validate([
-            'name' =>'required',
-            'description' =>'required',
-            'type' =>'required',
-            'status' =>'required'
+        $request->validate(
+            [
+                'name' => 'required',
+                'description' => 'required',
+                'type' => 'required',
             ]
         );
 
@@ -43,13 +44,13 @@ class EvenementController extends Controller
         $heuredebut = $request->heuredebut;
         $dateTimeD = DateTime::createFromFormat('m/d/Y', $datedebut);
         $formatDateDebut = $dateTimeD->format('Y-m-d');
-        $dateTimeDebut = ($formatDateDebut.' '.$heuredebut.':00');
+        $dateTimeDebut = ($formatDateDebut . ' ' . $heuredebut . ':00');
 
         $datefin = $request->datefin;
         $heurefin = $request->heurefin;
         $dateTimeF = DateTime::createFromFormat('m/d/Y', $datefin);
         $formatDateFin = $dateTimeF->format('Y-m-d');
-        $dateTimeFin = ($formatDateFin.' '.$heurefin.':00');
+        $dateTimeFin = ($formatDateFin . ' ' . $heurefin . ':00');
 
 
         $evenement = Evenement::create(
@@ -59,7 +60,7 @@ class EvenementController extends Controller
                 'type' => $request->type,
                 'date_debut' => $dateTimeDebut,
                 'date_fin' => $dateTimeFin,
-                'status' => $request->status,
+                'status' => 'en attente',
             ]
         );
 
@@ -71,7 +72,8 @@ class EvenementController extends Controller
      */
     public function show(Evenement $evenement)
     {
-        //
+        $phases = $evenement->phases;
+        return view('evenements.show', compact('evenement', 'phases'));
     }
 
     /**
@@ -87,11 +89,12 @@ class EvenementController extends Controller
      */
     public function update(UpdateEvenementRequest $request, Evenement $evenement)
     {
-        $request->validate([
-            'name' =>'required',
-            'description' =>'required',
-            'type' =>'required',
-            'status' =>'required'
+        $request->validate(
+            [
+                'name' => 'required',
+                'description' => 'required',
+                'type' => 'required',
+                'status' => 'required'
             ]
         );
 
@@ -101,13 +104,13 @@ class EvenementController extends Controller
         $heuredebut = $request->heuredebut;
         $dateTimeD = DateTime::createFromFormat('m/d/Y', $datedebut);
         $formatDateDebut = $dateTimeD->format('Y-m-d');
-        $dateTimeDebut = ($formatDateDebut.' '.$heuredebut.':00');
+        $dateTimeDebut = ($formatDateDebut . ' ' . $heuredebut . ':00');
 
         $datefin = $request->datefin;
         $heurefin = $request->heurefin;
         $dateTimeF = DateTime::createFromFormat('m/d/Y', $datefin);
         $formatDateFin = $dateTimeF->format('Y-m-d');
-        $dateTimeFin = ($formatDateFin.' '.$heurefin.':00');
+        $dateTimeFin = ($formatDateFin . ' ' . $heurefin . ':00');
 
 
         $evenement->update(

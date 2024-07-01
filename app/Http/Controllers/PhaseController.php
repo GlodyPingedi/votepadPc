@@ -28,10 +28,13 @@ class PhaseController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($evenements)
     {
-        $evenements=Evenement:: orderBy('nom')->get();
-        return view("phases.create", compact("evenements"));
+        $evenement = Evenement::find($evenements);
+        return view("phases.create", [
+            'evenement_id' => $evenement->id,
+            'evenement_type' => $evenement->type
+        ]);
     }
 
     /**
@@ -43,6 +46,7 @@ class PhaseController extends Controller
             'nom'=> 'require [ max:50 | min:3',
             'description'=> 'require'
         ]);
+        $evenement_id = $request->evenement_id;
         $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersNumber = strlen($characters);
         $codeLength = 3;
@@ -60,18 +64,17 @@ class PhaseController extends Controller
             [
                 'nom'=> $request->nom,
                 'description'=> $request->description,
-                'statut'=> $request->statut,
+                'statut'=> 'en attente',
                 'slug'=> $slug,
                 'type'=>$request->type,
                 'duree'=> $request->duree,
                 'date_debut'=> $request->date_debut,
                 'date_fin'=> $request->date_fin,
-                'evenement_id'=> $request->evenement_id
+                'evenement_id'=> $evenement_id
             ]
 
         );
-        
-        return redirect()->route('phases.index')->with('success','Enregistrement reussit');
+        return redirect()->route('evenements.show', $evenement_id)->with('success','Enregistrement reussi');
     }
 
     /**
