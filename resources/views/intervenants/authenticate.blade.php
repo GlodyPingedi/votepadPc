@@ -7,7 +7,7 @@
                 <img class="w-8 h-8 mr-2" src="https://upload.wikimedia.org/wikipedia/commons/a/ac/Eo_circle_orange_letter-v.svg" alt="logo">
                 VotePad2
             </a>
-            <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 w-2/4 xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+            <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 w-1/3 xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                 <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
                     @if (session('unsuccess'))
                     <div id="alert-2" class="flex items-center p-4 mb-4 text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert" >

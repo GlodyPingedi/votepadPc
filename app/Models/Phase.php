@@ -15,10 +15,12 @@ class Phase extends Model
         "nom",
         "description",
         "statut",
+        "duree",
         "slug",
         "date_debut",
         "date_fin",
-        "evenement_id"
+        "evenement_id",
+        "type"
     ];
 
     public function evenement():BelongsTo
@@ -32,5 +34,10 @@ class Phase extends Model
     public function intervenants(): BelongsToMany
     {
         return $this->belongsToMany(Intervenant::class, 'intervenant_phases');
+    }
+
+    public function criteres(): BelongsToMany
+    {
+        return $this->belongsToMany(Critere::class, 'phase_criteres');
     }
 }

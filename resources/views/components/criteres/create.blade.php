@@ -16,6 +16,13 @@
     
             @csrf
             <div class=" mr-5" style="padding-left: 20px">
+
+                <div class="mb-5">
+                    <label for="phase" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phases</label>
+                    <select id="phase" name="phase" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+
+                    </select>
+                </div>
                 <div class="mb-5">
                     <label for="libelle" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Critère</label>
                     <input type="text" id="libelle" name="libelle" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nom événement" required />
@@ -27,6 +34,13 @@
                 <div class="mb-5">
                     <label for="ponderation" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pondération</label>
                     <input type="text" id="ponderation" name="ponderation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Pondération" required />
+                </div>
+                <div class="mb-5">
+                    <label for="echelle" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Echelle</label>
+                    <select id="echelle" name="echelle" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option >3</option>
+                        <option selected>5</option>
+                    </select>
                 </div>
                 <div class="mb-5">
                     <button type="submit" class="text-yellow-400 hover:text-white border border-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-c-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-white dark:hover:bg-yellow-400 dark:focus:ring-yellow-900">

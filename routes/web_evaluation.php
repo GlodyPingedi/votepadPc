@@ -10,8 +10,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {
 
-    Route::get('phase/create', [PhaseController::class,'create'])->name('phase.create');
+    Route::get('phase/create/{evenement_id}', [PhaseController::class, 'create'])->name('phase.create');
     Route::get('phase/{id}', [PhaseController::class,'evenementPhase'])->name('phase.show');
+
+    Route::post('auto-question-get', [QuestionController::class,'getQuestionAuto'])->name('auto-question-get');
 
     Route::get('phase/encours', [PhaseController::class,'encours'])->name('phase.encours');
     Route::get('phase/active', [PhaseController::class,'active'])->name('phase.active');
@@ -20,6 +22,8 @@ Route::middleware('auth')->group(function () {
     Route::get('phase/attente', [PhaseController::class,'enAttente'])->name('phase.attente');
     Route::get('phase/pause', [PhaseController::class,'pause'])->name('phase.pause');
     Route::get('phase/terminer', [PhaseController::class,'terminer'])->name('phase.terminer');
+    
+    Route::get("questions_phase",[QuestionPhaseController::class,"questionPhase"])->name("phasequestion");
 
     Route::resource('phases', PhaseController::class);
     Route::resource('questions', QuestionController::class);

@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateQuestionRequest;
 use App\Models\Assertion;
 use App\Models\Phase;
 use App\Models\QuestionPhase;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class QuestionController extends Controller
@@ -36,31 +37,29 @@ class QuestionController extends Controller
      */
     public function store(StoreQuestionRequest $request)
     {
+    
         $verifQuestion=Question::orderBy('id','desc')->where("question",$request->question)->count();
         if($verifQuestion> 0){
             return back()->with("echec","Cette question existe déjà");
         }else{
         $question = Question::firstOrCreate([
-            'question'=> $request->question
+            'question'=> $request->question,
         ]);
-
         $dernier= Question::orderBy('id','desc')->take(1)->get();
         foreach ($dernier as $key => $value) {
           $question_id= $value->id;
         }
        $enregistrment=['question_id' => $question_id, 'phase_id'=> $request->phase_id, 'ponderation'=> $request->ponderation];
-        // return redirect()->action(
-        //     // [QuestionPhaseController::class, 'store'], $enregistrment
-        //     to_route('questionPhases.store',$enregistrment)
-        // );
-
-        $assertion = Assertion::firstOrCreate([
-            'question_id'=>$enregistrment['question_id'],
-            'assertion'=> $request->assertion,
-            'ponderation'=> $request->ponderationAssert,
-            'statut'=>"ok"
-        ]);
-
+        
+            foreach ($request->assertions as $key => $value) {
+                $assertion = Assertion::firstOrCreate([
+                    'question_id'=>$enregistrment['question_id'],
+                    'assertion'=> $value["name"],
+                    'ponderation'=>$value["ponderation"],
+                    'statut'=>"ok"
+                ]);
+            }
+        
         $verif=QuestionPhase::all()->where("phase_id", $request->phase_id);//on recupere tout dans question phase et on verifie si l'enregistrement existe deja
         $tabQuestion=array();
         foreach ($verif as $key => $value) {
@@ -75,7 +74,6 @@ class QuestionController extends Controller
                     "question_id"=> $enregistrment['question_id'],
                     "ponderation"=> $enregistrment['ponderation']
                 ]);
-                $questionPhase->save();
                 return back()->with("success","Question enregistrée avec succes"); 
         }
     }
@@ -123,4 +121,28 @@ class QuestionController extends Controller
     {
         //desactivation de statut et on va creer une vue pour les questions supprimees
     }
+
+    public function getQuestionAuto1(Request $request) {
+        $data = Question::select("question")
+         ->where("question","LIKE","%{$request->get('query')}%")
+         ->get();
+         return response()->json($data);
+     } 
+
+     public function getQuestionAuto(Request $request){
+        $search = $request->search;
+  
+        if($search == ''){
+            $employees = Question::orderby('question','asc')->select('id','question')->limit(5)->get();
+        }else{
+            $employees = Question::orderby('question','asc')->select('id','question')->where('question', 'like', '%' .$search . '%')->limit(5)->get();
+        }
+  
+        $response = array();
+        foreach($employees as $employee){
+           $response[] = array("value"=>$employee->id,"label"=>$employee->question);
+        }
+  
+        return response()->json($response); 
+     }
 }

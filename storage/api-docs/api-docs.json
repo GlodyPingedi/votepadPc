@@ -155,6 +155,64 @@
                 ]
             }
         },
+        "/phases": {
+            "get": {
+                "tags": [
+                    "phases"
+                ],
+                "summary": "Afficher la liste des Phases",
+                "description": "Api qui nous retourne la liste des Phases",
+                "operationId": "getPhasesList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/questions": {
+            "get": {
+                "tags": [
+                    "questions"
+                ],
+                "summary": "Afficher la liste des questions",
+                "description": "Api qui nous retourne la liste des questions",
+                "operationId": "getQuestionsList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/register": {
             "post": {
                 "tags": [

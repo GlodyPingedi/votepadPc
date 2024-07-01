@@ -13,11 +13,11 @@
                 </h2>
             </div>
             <div>
-                <button data-modal-target="create-modal" data-modal-toggle="create-modal" class="text-yellow-400 hover:text-white border border-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-white dark:hover:bg-yellow-400 dark:focus:ring-yellow-900 flex items-center">
+                <a onclick="creer(event, {{$phases}})" data-modal-target="create-modal" data-modal-toggle="create-modal" class="text-yellow-400 hover:text-white border border-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-white dark:hover:bg-yellow-400 dark:focus:ring-yellow-900 flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                     </svg>
-                </button>
+                </a>
             </div>
         </div>
         
@@ -48,6 +48,7 @@
                     <th scope="col" class="px-6 py-3">Num</th>
                     <th scope="col" class="px-6 py-3">Libellé</th>
                     <th scope="col" class="px-6 py-3">description</th>
+                    <th scope="col" class="px-6 py-3">Phase</th>
                     <th scope="col" class="px-6 py-3">ponderation</th>
                     <th scope="col" class="px-6 py-3">action</th>
                 </tr>
@@ -58,6 +59,11 @@
                     <td class="px-6 py-4">{{$i+1}}</td>
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{$item->libelle}}</th>
                     <td class="px-6 py-4">{{$item->description}}</td>
+                    <td class="px-6 py-4">
+                        @if ($item->phases->count() > 0)
+                            {{ $item->phases->first()->nom }}
+                        @endif
+                    </td>
                     <td class="px-6 py-4">{{$item->ponderation}}</td>
                     <td class="text-center">
                         <button id="dropdownMenuIconButton" data-dropdown-toggle="dropdownDots{{$i}}" class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-600" type="button">
@@ -122,6 +128,22 @@
 
             const inputponderation = document.querySelector('#edit-modal form div div #ponderation')
             inputponderation.setAttribute('value', ponderation);
+        }
+
+        function creer(event, $phases) {
+            event.preventDefault();
+            const phaseSelect = document.querySelector('#create-modal form div div #phase');
+
+            // Videz les options existantes
+            phaseSelect.innerHTML = '';
+
+            // Parcourez le tableau $phases et créez un élément <option> pour chaque option
+            $phases.forEach(phase => {
+                const optionElement = document.createElement('option');
+                optionElement.value = phase.id;
+                optionElement.textContent = phase.nom;
+                phaseSelect.appendChild(optionElement);
+            });
         }
     </script>
 </x-app-layout>

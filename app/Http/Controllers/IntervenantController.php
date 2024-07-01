@@ -168,7 +168,7 @@ class IntervenantController extends Controller
                     $intervenantPhase->save(); 
                     $phaseSlug = substr($intervenantPhaseCoupon, 0, 3);
                     $phase = Phase::where('slug', $phaseSlug)->first();
-                    return view('intervenants.intro', compact('phase'));
+                    return view('reponses.index', compact('phase', 'intervenant'));
                 }           
             }
         }

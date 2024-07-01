@@ -29,6 +29,10 @@ class ReponseController extends Controller
             // ->where('questions.statut','=','valide')
             // ->where('assertions.statut','=','active')
             ->get();
+
+        $phase=4;
+        $question=1;
+        $assertion=5;
     
         return view("reponses.index", compact('questionAssertion'));
     }

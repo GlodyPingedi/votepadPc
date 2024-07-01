@@ -9,9 +9,7 @@ class Question extends Model
 {
     use HasFactory;
     protected $fillable = [
-        "question",
-        "ponderation",
-        "phase_id"
+        "question"
     ];
     public function questionPhase(){
         return $this->hasMany(Phase::class);

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Phase;
 use App\Models\Critere;
 use App\Http\Requests\StoreCritereRequest;
 use App\Http\Requests\UpdateCritereRequest;
+use App\Models\PhaseCritere;
 
 class CritereController extends Controller
 {
@@ -13,8 +15,9 @@ class CritereController extends Controller
      */
     public function index()
     {
-        $criteres = Critere::latest()->paginate(13);
-        return view('criteres.index', compact('criteres'));
+        $phases = Phase::latest()->get();
+        $criteres = Critere::with('phases')->latest()->paginate(13);
+        return view('criteres.index', compact('criteres', 'phases'));
     }
 
     /**
@@ -34,15 +37,23 @@ class CritereController extends Controller
             'libelle' =>'required',
             'description' =>'required',
             'ponderation' =>'required',
+            'echelle' =>'required',
             ]
         );
-
+        $selectedPhaseId = $request->get('phase');
         $critere = Critere::create(
             [
                 'libelle' => $request->libelle,
                 'description' => $request->description,
                 'ponderation' => $request->ponderation,
-
+            ]
+        );
+        
+        $critere_phase = PhaseCritere::create(
+            [
+                'phase_id' => $selectedPhaseId,
+                'critere_id' => $critere->id,
+                'echelle' => $request->echelle,
             ]
         );
 

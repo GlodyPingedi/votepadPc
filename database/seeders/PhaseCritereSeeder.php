@@ -2,17 +2,16 @@
 
 namespace Database\Seeders;
 
-use App\Models\Evenement;
-use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
 
-class EvenementSeeder extends Seeder
+class PhaseCritereSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Evenement::factory()->count(5)->create();
+        //
     }
 }
